@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PEMA PES TURNUVASI PPT | Admin Paneli</title>
+    <meta name="description" content="PEMA PES TURNUVASI PPT yönetim paneli." />
+    <style>
+      :root {
+        --bg: #001489;
+        --bg2: #020617;
+        --card: rgba(6, 18, 68, 0.88);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: #f5f8ff;
+        --muted: #c2ceff;
+        --accent: #87c1ff;
+        --accent2: #eff4ff;
+        --gold: #ffd86b;
+        --danger: #ff7184;
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+        --radius: 22px;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100dvh; color: var(--text);
+        font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(124,174,255,.25), transparent 28%),
+          radial-gradient(circle at 84% 10%, rgba(255,255,255,.08), transparent 22%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      }
+      body::before {
+        content:""; position:fixed; inset:0; pointer-events:none;
+        background-image:
+          linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+        background-size:42px 42px; opacity:.28;
+      }
+      a { color: inherit; text-decoration: none; }
+      button,input,select,textarea { font: inherit; }
+      .page { width:min(1200px, calc(100% - 24px)); margin:0 auto; padding:16px 0 36px; }
+      .topbar, .card, .login-card {
+        border:1px solid var(--line); border-radius:var(--radius);
+        background:linear-gradient(180deg, rgba(12,31,114,.86), rgba(4,11,42,.94));
+        box-shadow:var(--shadow); backdrop-filter: blur(14px);
+      }
+      .topbar { display:flex; gap:16px; align-items:center; justify-content:space-between; margin-bottom:18px; padding:18px; }
+      .eyebrow { margin:0 0 4px; color:var(--accent); font-size:.78rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+      h1,h2,h3,p { margin:0; }
+      h1 { font-size:clamp(1.15rem,3vw,2rem); line-height:1.05; }
+      .nav { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+      .btn {
+        display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 16px;
+        border-radius:999px; border:1px solid transparent; font-weight:800; cursor:pointer;
+      }
+      .btn-primary { color:#00102f; background:linear-gradient(135deg,#eff5ff,#9dd0ff); }
+      .btn-ghost { color:var(--text); border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.06); }
+      .btn-danger { color:#fff; background:linear-gradient(135deg,#ff8493,#ff5b72); }
+      .summary { display:grid; gap:14px; grid-template-columns:repeat(4,minmax(0,1fr)); margin-bottom:18px; }
+      .metric { padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); }
+      .metric span { display:block; margin-bottom:8px; color:var(--muted); font-size:.82rem; }
+      .metric strong { font-size:1.1rem; }
+      .login-card { width:min(520px,100%); margin:0 auto 18px; padding:22px; }
+      .login-card h2 { margin-bottom:10px; font-size:clamp(1.5rem,4vw,2.3rem); line-height:1; }
+      .stack { display:grid; gap:12px; }
+      .grid-2 { display:grid; gap:12px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .grid-3 { display:grid; gap:12px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .field { display:grid; gap:8px; }
+      .field span { color:#eef3ff; font-size:.9rem; font-weight:700; }
+      .field input, .field select, .field textarea {
+        width:100%; min-height:48px; padding:12px 14px; color:var(--text); border:1px solid rgba(255,255,255,.12);
+        border-radius:16px; background:rgba(1,6,28,.55); outline:none;
+      }
+      .field textarea { min-height:132px; resize:vertical; }
+      .field input:focus, .field select:focus, .field textarea:focus { border-color:rgba(140,197,255,.7); box-shadow:0 0 0 4px rgba(107,172,255,.16); }
+      .hidden { display:none !important; }
+      .panel-grid { display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .card { padding:18px; }
+      .section-head { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:14px; }
+      .badge { display:inline-flex; align-items:center; min-height:38px; padding:0 12px; border-radius:999px; color:var(--accent2); border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); font-size:.82rem; font-weight:700; }
+      .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+      .notes { margin-top:10px; color:var(--muted); font-size:.88rem; line-height:1.5; }
+      .toast {
+        position:fixed; right:16px; bottom:16px; z-index:20; max-width:min(92vw,360px); padding:14px 16px;
+        border:1px solid rgba(255,255,255,.16); border-radius:16px; color:#f7fbff; background:rgba(2,8,31,.92); box-shadow:var(--shadow);
+      }
+      .table-shell { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:18px; }
+      table { width:100%; min-width:900px; border-collapse:collapse; background:rgba(1,6,28,.42); }
+      thead th { padding:14px 12px; color:#eef4ff; font-size:.8rem; text-align:left; letter-spacing:.06em; text-transform:uppercase; background:linear-gradient(180deg, rgba(3,9,35,.98), rgba(3,9,35,.9)); border-bottom:1px solid rgba(255,255,255,.1); }
+      tbody td { padding:13px 12px; border-bottom:1px solid rgba(255,255,255,.08); color:#f7f9ff; font-size:.95rem; }
+      tbody tr:nth-child(even) td { background:rgba(255,255,255,.02); }
+      .rank { width:68px; font-weight:900; color:var(--gold); }
+      .team { font-weight:800; }
+      .num { text-align:center; font-variant-numeric:tabular-nums; }
+      .empty { padding:26px 18px; color:var(--muted); text-align:center; }
+      @media (max-width: 980px) { .summary, .panel-grid { grid-template-columns:1fr; } }
+      @media (max-width: 720px) { .grid-2, .grid-3 { grid-template-columns:1fr; } }
+      @media (max-width: 640px) {
+        .page { width:min(100%, calc(100% - 14px)); padding-top:8px; }
+        .topbar, .login-card, .card { padding:16px; }
+        .nav { justify-content:flex-start; }
+      }
+    </style>
+    <script>
+      window.PEMA_SUPABASE = {
+        url: "https://ohmwgkegwiwyvqgedzdt.supabase.co",
+        anonKey: "sb_publishable_WiOQ0jsUnYFWij2ZcmJDMw_VVX_w0Lw",
+      };
+    </script>
+    <script src="pema-sync.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PEMA PES TURNUVASI PPT</p>
+          <h1>Admin Paneli</h1>
+        </div>
+        <nav class="nav" aria-label="Ana gezinme">
+          <a class="btn btn-ghost" href="index.html">Puan Tablosu</a>
+          <a class="btn btn-ghost" href="haberler.html">Haberler</a>
+          <button class="btn btn-danger hidden" id="logoutButton" type="button">Çıkış Yap</button>
+        </nav>
+      </header>
+
+      <section class="summary">
+        <div class="metric"><span>Takım Sayısı</span><strong id="teamCount">0</strong></div>
+        <div class="metric"><span>Haber Sayısı</span><strong id="newsCount">0</strong></div>
+        <div class="metric"><span>Maç Kaydı</span><strong id="matchCount">0</strong></div>
+        <div class="metric"><span>Giriş Durumu</span><strong id="authStatus">Kapalı</strong></div>
+      </section>
+
+      <section id="loginSection" class="login-card">
+        <p class="eyebrow">Yetkili Giriş</p>
+        <h2>Panele erişmek için giriş yap</h2>
+        <form id="loginForm" class="stack">
+          <label class="field"><span>Kullanıcı Adı</span><input name="username" autocomplete="username" /></label>
+          <label class="field"><span>Şifre</span><input name="password" type="password" autocomplete="current-password" /></label>
+          <button class="btn btn-primary" type="submit">Giriş Yap</button>
+        </form>
+      </section>
+
+      <section id="adminPanel" class="panel-grid hidden" aria-live="polite">
+        <article class="card">
+          <div class="section-head">
+            <div><p class="eyebrow">Takım Ekleme</p><h3>Yeni takım oluştur</h3></div>
+            <span class="badge">Sıfırdan Başlar</span>
+          </div>
+          <form id="teamForm" class="stack">
+            <label class="field"><span>Takım Adı</span><input name="teamName" placeholder="Örn: PEMA United" /></label>
+            <button class="btn btn-primary" type="submit">Takım Ekle</button>
+          </form>
+          <p class="notes">Yeni takım eklendiğinde bütün istatistikler 0’dan başlar.</p>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div><p class="eyebrow">Maç Skoru Girme</p><h3>Sonucu kaydet ve puanları güncelle</h3></div>
+            <span class="badge">Otomatik Hesaplama</span>
+          </div>
+          <form id="matchForm" class="stack">
+            <div class="grid-2">
+              <label class="field"><span>Ev Sahibi</span><select name="homeTeam" id="homeTeamSelect"></select></label>
+              <label class="field"><span>Deplasman</span><select name="awayTeam" id="awayTeamSelect"></select></label>
+            </div>
+            <div class="grid-3">
+              <label class="field"><span>Ev Skor</span><input name="homeScore" type="number" min="0" step="1" placeholder="0" /></label>
+              <label class="field"><span>Dep Skor</span><input name="awayScore" type="number" min="0" step="1" placeholder="0" /></label>
+              <label class="field"><span>Not</span><input value="Puan tablosu güncellenecek" disabled /></label>
+            </div>
+            <button class="btn btn-primary" type="submit">Maçı Kaydet</button>
+          </form>
+          <p class="notes">Kazanan, kaybeden veya beraberlik otomatik algılanır ve puan tablosu hemen yenilenir.</p>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div><p class="eyebrow">Haber Girme</p><h3>Haber kartı oluştur</h3></div>
+            <span class="badge">Anında Yayın</span>
+          </div>
+          <form id="newsForm" class="stack">
+            <label class="field"><span>Haber Başlığı</span><input name="title" placeholder="Örn: Haftanın derbisi" /></label>
+            <div class="grid-2">
+              <label class="field"><span>Gazeteci Adı</span><input name="journalist" placeholder="Örn: Mert Kaya" /></label>
+              <label class="field"><span>Tarih</span><input value="Otomatik oluşturulur" disabled /></label>
+            </div>
+            <label class="field"><span>Haber Metni</span><textarea name="text" rows="6" placeholder="Haberi buraya yazın..."></textarea></label>
+            <button class="btn btn-primary" type="submit">Haberi Kaydet</button>
+          </form>
+          <p class="notes">Kaydedilen haberler <a href="haberler.html"><strong>haberler.html</strong></a> sayfasında anında görünür.</p>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div><p class="eyebrow">Ceza / Ödül Sistemi</p><h3>Takım puanını doğrudan artır veya azalt</h3></div>
+            <span class="badge">+ / - Puan</span>
+          </div>
+          <form id="adjustForm" class="stack">
+            <div class="grid-2">
+              <label class="field"><span>Takım Seç</span><select name="teamId" id="adjustTeamSelect"></select></label>
+              <label class="field"><span>Puan Değeri</span><input name="delta" type="number" step="1" placeholder="+3 / -2" /></label>
+            </div>
+            <button class="btn btn-primary" type="submit">Uygula</button>
+          </form>
+          <p class="notes">Bu işlem takımın puanını doğrudan değiştirir; diğer maç istatistikleri korunur.</p>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div><p class="eyebrow">Yönetim İşlemleri</p><h3>Takım ve haber silme, ligi sıfırlama</h3></div>
+            <span class="badge">Kontrol Paneli</span>
+          </div>
+          <div class="stack">
+            <form id="deleteTeamForm" class="stack">
+              <label class="field"><span>Silinecek Takım</span><select name="teamId" id="deleteTeamSelect"></select></label>
+              <button class="btn btn-danger" type="submit">Takımı Sil</button>
+            </form>
+            <form id="deleteNewsForm" class="stack">
+              <label class="field"><span>Silinecek Haber</span><select name="newsId" id="deleteNewsSelect"></select></label>
+              <button class="btn btn-danger" type="submit">Haberi Sil</button>
+            </form>
+            <div class="actions">
+              <button class="btn btn-danger" type="button" id="resetLeagueButton">Ligi Sıfırla</button>
+            </div>
+          </div>
+          <p class="notes">Ligi sıfırlamak yalnızca takım, maç ve puan verilerini temizler. Haberler korunur.</p>
+        </article>
+      </section>
+
+      <section id="previewSection" class="card hidden" style="margin-top:16px;">
+        <div class="section-head">
+          <div><p class="eyebrow">Canlı Görünüm</p><h3>Son durum tabloda görünüyor</h3></div>
+          <span class="badge">Anlık görünüm</span>
+        </div>
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th class="rank">Sıra</th>
+                <th>Takım Adı</th>
+                <th class="num">O</th>
+                <th class="num">G</th>
+                <th class="num">B</th>
+                <th class="num">M</th>
+                <th class="num">AG</th>
+                <th class="num">YG</th>
+                <th class="num">AV</th>
+                <th class="num">P</th>
+              </tr>
+            </thead>
+            <tbody id="standingsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <script>
+      const STORAGE_KEY = "pema-pes-turnuvasi-ppt-v1";
+      const ADMIN_USER = "admin";
+      const ADMIN_PASS = "metin2000?";
+      const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[char] || char));
+      const clone = (value) => JSON.parse(JSON.stringify(value));
+      function readState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { teams: [], news: [], matches: [], adjustments: [] };
+          const parsed = JSON.parse(raw);
+          return {
+            teams: Array.isArray(parsed.teams) ? parsed.teams : [],
+            news: Array.isArray(parsed.news) ? parsed.news : [],
+            matches: Array.isArray(parsed.matches) ? parsed.matches : [],
+            adjustments: Array.isArray(parsed.adjustments) ? parsed.adjustments : [],
+          };
+        } catch { return { teams: [], news: [], matches: [], adjustments: [] }; }
+      }
+      function writeState(state) { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      function sortedTeams(teams) {
+        return [...teams].sort((a, b) => {
+          const p = (b.points || 0) - (a.points || 0); if (p) return p;
+          const av = ((b.goalsFor || 0) - (b.goalsAgainst || 0)) - ((a.goalsFor || 0) - (a.goalsAgainst || 0)); if (av) return av;
+          const gf = (b.goalsFor || 0) - (a.goalsFor || 0); if (gf) return gf;
+          return String(a.name).localeCompare(String(b.name), "tr");
+        });
+      }
+      function emptyTeam(team) { return { id: team.id, name: team.name, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 }; }
+      function computeStandings(state) {
+        const table = new Map((state.teams || []).map((team) => [team.id, emptyTeam(team)]));
+        (state.matches || []).forEach((match) => {
+          const home = table.get(match.homeTeamId); const away = table.get(match.awayTeamId);
+          if (!home || !away) return;
+          const homeScore = Number(match.homeScore) || 0; const awayScore = Number(match.awayScore) || 0;
+          home.played += 1; away.played += 1;
+          home.goalsFor += homeScore; home.goalsAgainst += awayScore;
+          away.goalsFor += awayScore; away.goalsAgainst += homeScore;
+          if (homeScore > awayScore) { home.wins += 1; away.losses += 1; home.points += 3; }
+          else if (awayScore > homeScore) { away.wins += 1; home.losses += 1; away.points += 3; }
+          else { home.draws += 1; away.draws += 1; home.points += 1; away.points += 1; }
+        });
+        (state.adjustments || []).forEach((a) => { const team = table.get(a.teamId); if (team) team.points += Number(a.delta) || 0; });
+        return sortedTeams([...table.values()]);
+      }
+      function prettyDate(value) { return new Date(value).toLocaleString("tr-TR", { day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit" }); }
+      function renderToast(message, tone = "info") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.borderColor = tone === "error" ? "rgba(255, 109, 130, 0.4)" : tone === "success" ? "rgba(112, 240, 179, 0.38)" : "rgba(255, 255, 255, 0.16)";
+        toast.classList.remove("hidden");
+        clearTimeout(window.__pemaToastTimer);
+        window.__pemaToastTimer = setTimeout(() => toast.classList.add("hidden"), 2200);
+      }
+      function setAuth(isAuthed) { if (isAuthed) localStorage.setItem("pema-pes-admin-auth-v1", "yes"); else localStorage.removeItem("pema-pes-admin-auth-v1"); }
+      function isAuthed() { return localStorage.getItem("pema-pes-admin-auth-v1") === "yes"; }
+      function renderSummary() {
+        const state = readState();
+        document.getElementById("teamCount").textContent = String(state.teams.length);
+        document.getElementById("newsCount").textContent = String(state.news.length);
+        document.getElementById("matchCount").textContent = String(state.matches.length);
+        document.getElementById("authStatus").textContent = isAuthed() ? "Açık" : "Kapalı";
+      }
+      function renderStandingsPreview() {
+        const state = readState();
+        const teams = computeStandings(state);
+        const body = document.getElementById("standingsBody");
+        if (!teams.length) {
+          body.innerHTML = `<tr><td class="empty" colspan="10">Henüz takım eklenmedi. İlk takımı ekleyerek başlayın.</td></tr>`;
+          return;
+        }
+        body.innerHTML = teams.map((team, index) => `
+          <tr>
+            <td class="rank">${index + 1}</td>
+            <td class="team">${esc(team.name)}</td>
+            <td class="num">${team.played || 0}</td>
+            <td class="num">${team.wins || 0}</td>
+            <td class="num">${team.draws || 0}</td>
+            <td class="num">${team.losses || 0}</td>
+            <td class="num">${team.goalsFor || 0}</td>
+            <td class="num">${team.goalsAgainst || 0}</td>
+            <td class="num">${(team.goalsFor || 0) - (team.goalsAgainst || 0)}</td>
+            <td class="num">${team.points || 0}</td>
+          </tr>
+        `).join("");
+      }
+      function fillSelect(select, items, labelFn) {
+        if (!items.length) {
+          select.innerHTML = '<option value="">Önce takım ekleyin</option>';
+          select.disabled = true;
+          return;
+        }
+        select.disabled = false;
+        select.innerHTML = items.map((item) => `<option value="${item.id}">${esc(labelFn(item))}</option>`).join("");
+      }
+      function renderSelects() {
+        const state = readState();
+        const teams = computeStandings(state);
+        fillSelect(document.getElementById("homeTeamSelect"), teams, (team) => team.name);
+        fillSelect(document.getElementById("awayTeamSelect"), teams, (team) => team.name);
+        fillSelect(document.getElementById("adjustTeamSelect"), teams, (team) => team.name);
+        fillSelect(document.getElementById("deleteTeamSelect"), teams, (team) => team.name);
+        const news = [...state.news].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        const newsSelect = document.getElementById("deleteNewsSelect");
+        if (!news.length) {
+          newsSelect.innerHTML = '<option value="">Silinecek haber yok</option>';
+          newsSelect.disabled = true;
+        } else {
+          newsSelect.disabled = false;
+          newsSelect.innerHTML = news.map((item) => `<option value="${item.id}">${esc((item.title || "Başlıksız haber") + " • " + (item.journalist || "Gazeteci belirtilmedi"))}</option>`).join("");
+        }
+      }
+      function syncAfterLocalChange() {
+        renderSummary();
+        renderSelects();
+        renderStandingsPreview();
+        window.PemaTurnuvaSync.syncLocalStateToBackend().catch((error) => console.error(error));
+      }
+      function addTeam(name) {
+        const teamName = String(name || "").trim().replace(/\s+/g, " ");
+        if (!teamName) return renderToast("Takım adı boş olamaz.", "error");
+        const state = readState();
+        if (state.teams.some((team) => team.name.toLowerCase() === teamName.toLowerCase())) return renderToast("Bu takım zaten mevcut.", "error");
+        state.teams.push({ id: crypto.randomUUID(), name: teamName, createdAt: new Date().toISOString() });
+        writeState(state); syncAfterLocalChange(); renderToast("Takım eklendi.", "success");
+      }
+      function addMatch(homeId, awayId, homeScoreValue, awayScoreValue) {
+        const homeScore = Number.parseInt(homeScoreValue, 10); const awayScore = Number.parseInt(awayScoreValue, 10);
+        if (!homeId || !awayId) return renderToast("İki takımı da seçmelisiniz.", "error");
+        if (homeId === awayId) return renderToast("Aynı takım kendi kendisiyle oynayamaz.", "error");
+        if (!Number.isInteger(homeScore) || homeScore < 0 || !Number.isInteger(awayScore) || awayScore < 0) return renderToast("Skorlar 0 veya daha büyük tam sayı olmalı.", "error");
+        const state = readState();
+        if (!state.teams.find((t) => t.id === homeId) || !state.teams.find((t) => t.id === awayId)) return renderToast("Seçilen takımlar bulunamadı.", "error");
+        state.matches.push({ id: crypto.randomUUID(), homeTeamId: homeId, awayTeamId: awayId, homeScore, awayScore, createdAt: new Date().toISOString() });
+        writeState(state); document.getElementById("matchForm").reset(); syncAfterLocalChange(); renderToast("Maç kaydedildi ve tablo güncellendi.", "success");
+      }
+      function addNews(title, journalist, text) {
+        const cleanTitle = String(title || "").trim(); const cleanJournalist = String(journalist || "").trim(); const cleanText = String(text || "").trim();
+        if (!cleanTitle || !cleanJournalist || !cleanText) return renderToast("Haber bilgilerini eksiksiz girin.", "error");
+        const state = readState();
+        state.news.unshift({ id: crypto.randomUUID(), title: cleanTitle, journalist: cleanJournalist, text: cleanText, createdAt: new Date().toISOString() });
+        writeState(state); document.getElementById("newsForm").reset(); syncAfterLocalChange(); renderToast("Haber yayınlandı.", "success");
+      }
+      function adjustPoints(teamId, deltaValue) {
+        const delta = Number.parseInt(deltaValue, 10);
+        if (!teamId) return renderToast("Önce bir takım seçin.", "error");
+        if (!Number.isInteger(delta)) return renderToast("Puan değeri tam sayı olmalıdır.", "error");
+        const state = readState();
+        if (!state.teams.find((team) => team.id === teamId)) return renderToast("Seçilen takım bulunamadı.", "error");
+        state.adjustments.push({ id: crypto.randomUUID(), teamId, delta, createdAt: new Date().toISOString() });
+        writeState(state); document.getElementById("adjustForm").reset(); syncAfterLocalChange(); renderToast(delta > 0 ? "Puan artırıldı." : "Puan düşürüldü.", "success");
+      }
+      function deleteTeam(teamId) {
+        const state = readState(); const team = state.teams.find((item) => item.id === teamId);
+        if (!team) return renderToast("Silinecek takım bulunamadı.", "error");
+        if (!window.confirm(`"${team.name}" takımını ve bu takıma ait maç kayıtlarını silmek istiyor musunuz?`)) return;
+        state.teams = state.teams.filter((item) => item.id !== teamId);
+        state.matches = state.matches.filter((match) => match.homeTeamId !== teamId && match.awayTeamId !== teamId);
+        state.adjustments = state.adjustments.filter((item) => item.teamId !== teamId);
+        writeState(state); document.getElementById("deleteTeamForm").reset(); syncAfterLocalChange(); renderToast("Takım silindi.", "success");
+      }
+      function deleteNews(newsId) {
+        const state = readState(); const news = state.news.find((item) => item.id === newsId);
+        if (!news) return renderToast("Silinecek haber bulunamadı.", "error");
+        if (!window.confirm(`"${news.title}" haberini silmek istiyor musunuz?`)) return;
+        state.news = state.news.filter((item) => item.id !== newsId);
+        writeState(state); document.getElementById("deleteNewsForm").reset(); syncAfterLocalChange(); renderToast("Haber silindi.", "success");
+      }
+      function resetLeague() {
+        if (!window.confirm("Ligi sıfırlamak tüm takım, maç ve puan verilerini temizler. Haberler korunur. Devam edilsin mi?")) return;
+        const state = readState(); state.teams = []; state.matches = []; state.adjustments = [];
+        writeState(state); document.getElementById("deleteTeamForm").reset(); document.getElementById("matchForm").reset(); document.getElementById("adjustForm").reset();
+        syncAfterLocalChange(); renderToast("Lig sıfırlandı.", "success");
+      }
+      function setPanelVisibility() {
+        const authed = isAuthed();
+        document.getElementById("loginSection").classList.toggle("hidden", authed);
+        document.getElementById("adminPanel").classList.toggle("hidden", !authed);
+        document.getElementById("previewSection").classList.toggle("hidden", !authed);
+        document.getElementById("logoutButton").classList.toggle("hidden", !authed);
+        renderSummary();
+        if (authed) { renderSelects(); renderStandingsPreview(); }
+      }
+      document.getElementById("loginForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.username.value.trim() === ADMIN_USER && form.password.value === ADMIN_PASS) {
+          setAuth(true); form.reset(); setPanelVisibility(); renderToast("Giriş başarılı.", "success");
+        } else {
+          renderToast("Kullanıcı adı veya şifre hatalı.", "error");
+        }
+      });
+      document.getElementById("logoutButton").addEventListener("click", () => { setAuth(false); setPanelVisibility(); renderToast("Çıkış yapıldı.", "success"); });
+      document.getElementById("teamForm").addEventListener("submit", (event) => { event.preventDefault(); addTeam(event.currentTarget.teamName.value); });
+      document.getElementById("matchForm").addEventListener("submit", (event) => { event.preventDefault(); const form = event.currentTarget; addMatch(form.homeTeam.value, form.awayTeam.value, form.homeScore.value, form.awayScore.value); });
+      document.getElementById("newsForm").addEventListener("submit", (event) => { event.preventDefault(); const form = event.currentTarget; addNews(form.title.value, form.journalist.value, form.text.value); });
+      document.getElementById("adjustForm").addEventListener("submit", (event) => { event.preventDefault(); adjustPoints(event.currentTarget.teamId.value, event.currentTarget.delta.value); });
+      document.getElementById("deleteTeamForm").addEventListener("submit", (event) => { event.preventDefault(); deleteTeam(event.currentTarget.teamId.value); });
+      document.getElementById("deleteNewsForm").addEventListener("submit", (event) => { event.preventDefault(); deleteNews(event.currentTarget.newsId.value); });
+      document.getElementById("resetLeagueButton").addEventListener("click", resetLeague);
+      window.addEventListener("storage", () => { renderSummary(); if (isAuthed()) { renderSelects(); renderStandingsPreview(); } });
+      async function bootstrap() {
+        await window.PemaTurnuvaSync.refreshLocalFromBackend();
+        setPanelVisibility();
+        await window.PemaTurnuvaSync.subscribe(() => {
+          renderSummary();
+          if (isAuthed()) { renderSelects(); renderStandingsPreview(); }
+        });
+      }
+      bootstrap();
+    </script>
+  </body>
+</html>

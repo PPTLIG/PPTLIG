@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PEMA PES TURNUVASI PPT | Haberler</title>
+    <meta name="description" content="PEMA PES TURNUVASI PPT haber akışı." />
+    <style>
+      :root {
+        --bg: #001489;
+        --bg2: #020617;
+        --card: rgba(6, 18, 68, 0.88);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: #f5f8ff;
+        --muted: #c2ceff;
+        --accent: #87c1ff;
+        --accent2: #eff4ff;
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+        --radius: 22px;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        color: var(--text);
+        font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(124, 174, 255, 0.24), transparent 28%),
+          radial-gradient(circle at 84% 10%, rgba(255, 255, 255, 0.08), transparent 22%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        background-size: 42px 42px;
+        opacity: .28;
+      }
+      a { color: inherit; text-decoration: none; }
+      .page { width:min(1180px, calc(100% - 24px)); margin:0 auto; padding:16px 0 36px; }
+      .topbar, .hero, .section {
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        background:linear-gradient(180deg, rgba(12,31,114,.86), rgba(4,11,42,.94));
+        box-shadow:var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+      .topbar { display:flex; gap:16px; align-items:center; justify-content:space-between; margin-bottom:18px; padding:18px; }
+      h1,h2,h3,p { margin:0; }
+      .eyebrow { margin:0 0 4px; color:var(--accent); font-size:.78rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+      h1 { font-size:clamp(1.15rem,3vw,2rem); line-height:1.05; }
+      .nav { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+      .btn { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 16px; border-radius:999px; border:1px solid transparent; font-weight:800; }
+      .btn-primary { color:#00102f; background:linear-gradient(135deg,#eff5ff,#9dd0ff); }
+      .btn-ghost { color:var(--text); border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.06); }
+      .hero { padding:22px; margin-bottom:18px; display:grid; gap:14px; }
+      .hero h2 { font-size:clamp(1.6rem,4vw,2.6rem); line-height:1; }
+      .lede { max-width:64ch; color:var(--muted); line-height:1.6; }
+      .meta { display:flex; flex-wrap:wrap; gap:10px; }
+      .badge { display:inline-flex; align-items:center; min-height:38px; padding:0 12px; border-radius:999px; color:var(--accent2); border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); font-size:.82rem; font-weight:700; }
+      .section { padding:18px; }
+      .section-head { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:14px; }
+      .news-list { display:grid; gap:12px; }
+      .news-card { display:grid; gap:10px; padding:18px; border:1px solid rgba(255,255,255,.1); border-radius:18px; background:rgba(255,255,255,.05); }
+      .news-card h4 { font-size:1.02rem; line-height:1.3; }
+      .byline { color:var(--accent); font-size:.88rem; font-weight:700; }
+      .text { color:#eef3ff; line-height:1.7; }
+      .time { color:var(--muted); font-size:.8rem; }
+      .empty { padding:28px 16px; color:var(--muted); text-align:center; }
+      @media (max-width: 640px) {
+        .page { width:min(100%, calc(100% - 14px)); padding-top:8px; }
+        .topbar, .hero, .section { padding:16px; }
+        .nav { justify-content:flex-start; }
+      }
+    </style>
+    <script>
+      window.PEMA_SUPABASE = {
+        url: "https://ohmwgkegwiwyvqgedzdt.supabase.co",
+        anonKey: "sb_publishable_WiOQ0jsUnYFWij2ZcmJDMw_VVX_w0Lw",
+      };
+    </script>
+    <script src="pema-sync.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PEMA PES TURNUVASI PPT</p>
+          <h1>Haberler</h1>
+        </div>
+        <nav class="nav" aria-label="Ana gezinme">
+          <a class="btn btn-ghost" href="index.html">Puan Tablosu</a>
+          <a class="btn btn-primary" href="admin.html">Admin Paneli</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="eyebrow">Dinamik Haber Akışı</p>
+        <h2>Turnuvayla ilgili en yeni haberleri ve gelişmeleri burada inceleyin.</h2>
+        <p class="lede">
+          Son eklenen haberler önce görünür. Sayfayı açık bıraksanız bile yeni paylaşımlar anında
+          listede yerini alır.
+        </p>
+        <div class="meta">
+          <span class="badge" id="newsCount">0 haber</span>
+          <span class="badge">Anlık güncelleme</span>
+          <span class="badge">Mobil kart görünümü</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Güncel Haberler</p>
+            <h3>En son paylaşılan haberler üstte görünür</h3>
+          </div>
+          <span class="badge">PEMA Basın Akışı</span>
+        </div>
+        <div id="newsList" class="news-list"></div>
+      </section>
+    </main>
+
+    <script>
+      const STORAGE_KEY = "pema-pes-turnuvasi-ppt-v1";
+      const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[char] || char));
+      function readState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { teams: [], news: [], matches: [], adjustments: [] };
+          const parsed = JSON.parse(raw);
+          return {
+            teams: Array.isArray(parsed.teams) ? parsed.teams : [],
+            news: Array.isArray(parsed.news) ? parsed.news : [],
+            matches: Array.isArray(parsed.matches) ? parsed.matches : [],
+            adjustments: Array.isArray(parsed.adjustments) ? parsed.adjustments : [],
+          };
+        } catch {
+          return { teams: [], news: [], matches: [], adjustments: [] };
+        }
+      }
+      function prettyDate(value) {
+        return new Date(value).toLocaleString("tr-TR", { day:"2-digit", month:"long", hour:"2-digit", minute:"2-digit" });
+      }
+      function renderNews() {
+        const state = readState();
+        const list = document.getElementById("newsList");
+        const count = document.getElementById("newsCount");
+        const items = [...state.news].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        count.textContent = `${items.length} haber`;
+        if (!items.length) {
+          list.innerHTML = `<div class="news-card empty">Henüz haber eklenmedi. Yönetim panelinden ilk haberi paylaşın.</div>`;
+          return;
+        }
+        list.innerHTML = items.map((news) => `
+          <article class="news-card">
+            <p class="byline">Gazeteci: ${esc(news.journalist || "Gazeteci belirtilmedi")}</p>
+            <h4>${esc(news.title || "Başlıksız Haber")}</h4>
+            <p class="text">${esc(news.text || "")}</p>
+            <p class="time">${prettyDate(news.createdAt || Date.now())}</p>
+          </article>
+        `).join("");
+      }
+      async function bootstrap() {
+        await window.PemaTurnuvaSync.refreshLocalFromBackend();
+        renderNews();
+        window.PemaTurnuvaSync.subscribe(renderNews);
+      }
+      bootstrap();
+    </script>
+  </body>
+</html>
